@@ -17,7 +17,6 @@ mongoose.connect(mongoDb.db, {
   }
 )
 
-const bookRoute = require('./node-backend/routes/book.routes')
 
 const app = express();
 app.use(bodyParser.json());
@@ -37,7 +36,7 @@ app.all('/*', (req, res, next) => {
 })
 
 // API root
-app.use('/api', bookRoute)
+app.use('/api', require('./node-backend/routes/book.routes'));
 
 // PORT
 const port = process.env.PORT || 8000;
