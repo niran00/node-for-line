@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const bookRoute = express.Router();
-let Book = require('../model/Book');
+let Book = require('../model/book.js');
 
 // Add Book
 bookRoute.route('/add-book').post((req, res, next) => {
