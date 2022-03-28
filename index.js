@@ -37,6 +37,7 @@ app.all('/*', (req, res, next) => {
 
 // API root
 app.use('/api', require('./node-backend/routes/book.routes'));
+app.use('/api', require('./node-backend/routes/user.routes'));
 
 // PORT
 const port = process.env.PORT || 8000;
