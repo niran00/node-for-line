@@ -4,7 +4,7 @@ const app = express();
 const userRoute = express.Router();
 let User = require('../model/user.js');
 
-// Add Book
+// Add User
 userRoute.route('/add-user').post((req, res, next) => {
   User.create(req.body, (error, data) => {
     if (error) {
@@ -15,7 +15,7 @@ userRoute.route('/add-user').post((req, res, next) => {
   })
 });
 
-// Get all Book
+// Get all User
 userRoute.route('/').get((req, res) => {
   User.find((error, data) => {
     if (error) {
@@ -26,7 +26,7 @@ userRoute.route('/').get((req, res) => {
   })
 })
 
-// Get Book
+// Get User
 userRoute.route('/read-user/:id').get((req, res) => {
   User.findById(req.params.id, (error, data) => {
     if (error) {
@@ -38,7 +38,7 @@ userRoute.route('/read-user/:id').get((req, res) => {
 })
 
 
-// Update Book
+// Update User
 userRoute.route('/update-user/:id').put((req, res, next) => {
   User.findByIdAndUpdate(req.params.id, {
     $set: req.body
@@ -53,7 +53,7 @@ userRoute.route('/update-user/:id').put((req, res, next) => {
   })
 })
 
-// Delete Book
+// Delete User
 userRoute.route('/delete-user/:id').delete((req, res, next) => {
   User.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
