@@ -15,7 +15,9 @@
     "cross-env": "^7.0.3",
     "express": "^4.17.3",
     "http-errors": "^2.0.0",
-    "mongoose": "^6.2.6"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.6",
+    "mongoose-unique-validator": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
