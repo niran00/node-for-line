@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
+const checkAuth = require("../middleware/check-auth")
 const userRoute = express.Router();
 let User = require('../model/user.js');
 
@@ -16,7 +17,7 @@ userRoute.route('/add-user').post((req, res, next) => {
 });
 
 // Get all User
-userRoute.route('/user').get((req, res) => {
+userRoute.route('/user', checkAuth ).get((req, res) => {
   User.find((error, data) => {
     if (error) {
       return next(error)
