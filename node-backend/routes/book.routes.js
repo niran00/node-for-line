@@ -28,7 +28,7 @@ bookRoute.route('/', checkAuth).get((req, res) => {
 })
 
 // Get Book
-bookRoute.route('/read-book/:id').get((req, res) => {
+bookRoute.route('/read-book/:id' , checkAuth ).get((req, res) => {
   Book.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
