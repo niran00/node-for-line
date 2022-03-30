@@ -4,9 +4,10 @@ const jwt = require('jsonwebtoken');
 
 const userRoute = express.Router();
 let User = require('../model/user.js');
+let checkAuth = require('../middleware/check-auth.js');
 
 // Add User
-userRoute.route('/add-user').post((req, res, next) => {
+userRoute.route('/add-user', checkAuth).post((req, res, next) => {
   User.create(req.body, (error, data) => {
     if (error) {
       return next(error)

@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-const checkAuth = require('../middleware/check-auth.js');
+
 const bookRoute = express.Router();
 let Book = require('../model/book.js');
 
 // Add Book
-bookRoute.route('/add-book', checkAuth).post((req, res, next) => {
+bookRoute.route('/add-book').post((req, res, next) => {
   Book.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -54,7 +54,7 @@ bookRoute.route('/update-book/:id').put((req, res, next) => {
 })
 
 // Delete Book
-bookRoute.route('/delete-book/:id', checkAuth).delete((req, res, next) => {
+bookRoute.route('/delete-book/:id').delete((req, res, next) => {
   Book.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
