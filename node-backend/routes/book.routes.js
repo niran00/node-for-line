@@ -40,7 +40,7 @@ bookRoute.route('/read-book/:id' , checkAuth ).get((req, res) => {
 
 
 // Update Book
-bookRoute.route('/update-book/:id').put((req, res, next) => {
+bookRoute.route('/update-book/:id', checkAuth).put((req, res, next) => {
   Book.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
