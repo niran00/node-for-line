@@ -54,7 +54,7 @@ bookRoute.route('/update-book/:id' , checkAuth).put((req, res, next) => {
 })
 
 // Delete Book
-bookRoute.route('/delete-book/:id').delete((req, res, next) => {
+bookRoute.route('/delete-book/:id',  checkAuth).delete((req, res, next) => {
   checkAuth,
   Book.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
