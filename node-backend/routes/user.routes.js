@@ -4,10 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const userRoute = express.Router();
 let User = require('../model/user.js');
-let checkAuth = require('../middleware/check-auth.js');
 
 // Add User
-userRoute.route('/add-user').post( checkAuth, (req, res, next) => {
+userRoute.route('/add-user').post((req, res, next) => {
   User.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -18,7 +17,7 @@ userRoute.route('/add-user').post( checkAuth, (req, res, next) => {
 });
 
 // Get all User
-userRoute.route('/user').get(  checkAuth, (req, res) => {
+userRoute.route('/user').get((req, res) => {
   User.find((error, data) => {
     if (error) {
       return next(error)
@@ -56,7 +55,7 @@ userRoute.route('/update-user/:id').put((req, res, next) => {
 })
 
 // Delete User
-userRoute.route('/delete-user/:id').delete( checkAuth, (req, res, next) => {
+userRoute.route('/delete-user/:id').delete((req, res, next) => {
   User.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);

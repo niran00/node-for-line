@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-
+let checkAuth = require('../middleware/check-auth.js');
 const bookRoute = express.Router();
 let Book = require('../model/book.js');
 
 // Add Book
-bookRoute.route('/add-book').post((req, res, next) => {
+bookRoute.route('/add-book').post( checkAuth, (req, res, next) => {
   Book.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -16,7 +16,7 @@ bookRoute.route('/add-book').post((req, res, next) => {
 });
 
 // Get all Book
-bookRoute.route('/').get((req, res) => {
+bookRoute.route('/').get( checkAuth, (req, res) => {
   Book.find((error, data) => {
     if (error) {
       return next(error)
