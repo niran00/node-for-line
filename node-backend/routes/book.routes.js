@@ -16,7 +16,7 @@ bookRoute.route('/add-book').post( checkAuth, (req, res, next) => {
 });
 
 // Get all Book
-bookRoute.route('/').get( checkAuth, (req, res) => {
+bookRoute.route('/').get((req, res) => {
   Book.find((error, data) => {
     if (error) {
       return next(error)
@@ -39,7 +39,7 @@ bookRoute.route('/read-book/:id').get((req, res) => {
 
 
 // Update Book
-bookRoute.route('/update-book/:id').put((req, res, next) => {
+bookRoute.route('/update-book/:id').put( checkAuth, (req, res, next) => {
   Book.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
@@ -54,7 +54,7 @@ bookRoute.route('/update-book/:id').put((req, res, next) => {
 })
 
 // Delete Book
-bookRoute.route('/delete-book/:id').delete((req, res, next) => {
+bookRoute.route('/delete-book/:id').delete(( checkAuth, req, res, next) => {
   Book.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
