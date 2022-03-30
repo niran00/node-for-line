@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const jwt = require('jwt');
 
 const userRoute = express.Router();
 let User = require('../model/user.js');
