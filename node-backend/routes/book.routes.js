@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const bookRoute = express.Router();
-let checkAuth = require('../middleware/check-auth.js');
+let checkAuth = require('../middleware/check-auth');
 let Book = require('../model/book.js');
 
 // Add Book
