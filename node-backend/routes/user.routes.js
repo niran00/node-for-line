@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const userRoute = express.Router();
 let User = require('../model/user.js');
 
