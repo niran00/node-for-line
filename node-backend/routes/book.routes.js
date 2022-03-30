@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-const checkAuth = require("../middleware/check-auth.js");
+const checkAuth = require('../middleware/check-auth.js');
 const bookRoute = express.Router();
 let Book = require('../model/book.js');
 
 // Add Book
-bookRoute.route('/add-book').post((req, res, next) => {
+bookRoute.route('/add-book', checkAuth).post((req, res, next) => {
   Book.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -16,7 +16,7 @@ bookRoute.route('/add-book').post((req, res, next) => {
 });
 
 // Get all Book
-bookRoute.route('/' , checkAuth ).get((req, res) => {
+bookRoute.route('/').get((req, res) => {
   Book.find((error, data) => {
     if (error) {
       return next(error)
@@ -27,7 +27,7 @@ bookRoute.route('/' , checkAuth ).get((req, res) => {
 })
 
 // Get Book
-bookRoute.route('/read-book/:id' , checkAuth).get((req, res) => {
+bookRoute.route('/read-book/:id').get((req, res) => {
   Book.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -39,7 +39,7 @@ bookRoute.route('/read-book/:id' , checkAuth).get((req, res) => {
 
 
 // Update Book
-bookRoute.route('/update-book/:id' , checkAuth).put((req, res, next) => {
+bookRoute.route('/update-book/:id').put((req, res, next) => {
   Book.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
