@@ -16,7 +16,7 @@ bookRoute.route('/add-book').post((req, res, next) => {
 });
 
 // Get all Book
-bookRoute.route('/', checkAuth ).get((req, res) => {
+bookRoute.route('/' ).get((req, res) => {
   Book.find((error, data) => {
     if (error) {
       return next(error)
@@ -27,7 +27,7 @@ bookRoute.route('/', checkAuth ).get((req, res) => {
 })
 
 // Get Book
-bookRoute.route('/read-book/:id').get((req, res) => {
+bookRoute.route('/read-book/:id' , checkAuth).get((req, res) => {
   Book.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -39,7 +39,7 @@ bookRoute.route('/read-book/:id').get((req, res) => {
 
 
 // Update Book
-bookRoute.route('/update-book/:id').put((req, res, next) => {
+bookRoute.route('/update-book/:id' , checkAuth).put((req, res, next) => {
   Book.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
@@ -54,7 +54,7 @@ bookRoute.route('/update-book/:id').put((req, res, next) => {
 })
 
 // Delete Book
-bookRoute.route('/delete-book/:id').delete((req, res, next) => {
+bookRoute.route('/delete-book/:id', checkAuth).delete((req, res, next) => {
   Book.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
