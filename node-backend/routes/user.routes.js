@@ -67,7 +67,7 @@ userRoute.route('/delete-user/:id').delete((req, res, next) => {
 })
 
 //Login
-router.post("/login", (req, res, next) => {
+userRoute.route.post("/login", (req, res, next) => {
   let fetchedUser;
   User.findOne({ userId: req.body.userId })
   .then(user => {
