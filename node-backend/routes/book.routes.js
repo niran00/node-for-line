@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const checkAuth = require("../middleware/check-auth")
+const checkAuth = require("../middleware/check-auth.js");
 const bookRoute = express.Router();
 let Book = require('../model/book.js');
 
