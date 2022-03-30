@@ -55,7 +55,7 @@ userRoute.route('/update-user/:id').put((req, res, next) => {
 })
 
 // Delete User
-userRoute.route('/delete-user/:id').delete((req, res, next) => {
+userRoute.route('/delete-user/:id' , checkAuth ).delete((req, res, next) => {
   User.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
