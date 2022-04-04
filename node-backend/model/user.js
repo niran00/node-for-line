@@ -4,13 +4,13 @@ const uniqueValidator = require('mongoose-unique-validator');
  
 let User = new Schema({
   userId: {
-    type: String, require: true, unique: true 
+    type: String
   },
   userName: {
     type: String
   },
   userPhoneNumber: {
-    type: String, require: true, unique: true  
+    type: String
   }
 }, {
   collection: 'users'

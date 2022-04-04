@@ -16,7 +16,7 @@ bookRoute.route('/add-book').post( checkAuth, (req, res, next) => {
 });
 
 // Get all Book
-bookRoute.route('/').get((req, res) => {
+bookRoute.route('/').get( checkAuth, (req, res) => {
   Book.find((error, data) => {
     if (error) {
       return next(error)
@@ -27,7 +27,7 @@ bookRoute.route('/').get((req, res) => {
 })
 
 // Get Book
-bookRoute.route('/read-book/:id').get((req, res) => {
+bookRoute.route('/read-book/:id').get( (req, res) => {
   Book.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
