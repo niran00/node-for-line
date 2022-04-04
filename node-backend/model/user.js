@@ -16,6 +16,6 @@ let User = new Schema({
   collection: 'users'
 })
 
-User.plugin(uniqueValidator);
+// User.plugin(uniqueValidator);
  
 module.exports = mongoose.model('User', User)
