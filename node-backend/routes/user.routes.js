@@ -12,9 +12,10 @@ userRoute.route('/add-user').post((req, res, next) => {
       return next(error)
     } else {
       res.json(data)
-      console.log(req.userData);
+      
     }
   })
+  console.log(req.userData);
 });
 
 // Get all User
