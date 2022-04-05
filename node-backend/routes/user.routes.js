@@ -10,13 +10,10 @@ userRoute.route('/add-user').post((req, res, next) => {
   User.create(req.body, (error, data) => {
     if (error) {
       return next(error)
-      res.json(req.userData); 
     } else {
       res.json(data)
-      res.json(req.userData); 
     }
   })
-  
 });
 
 // Get all User
