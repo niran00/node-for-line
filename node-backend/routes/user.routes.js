@@ -41,7 +41,7 @@ userRoute.route('/read-user/:id').get((req, res) => {
 
 // Update User
 userRoute.route('/update-user/:id').put((req, res, next) => {
-  User.findByIdAndUpdate(req.params.id,  {
+  User.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
     if (error) {
