@@ -11,7 +11,8 @@ let User = new Schema({
   },
   userPhoneNumber: {
     type: String, require: true, unique: true  
-  }
+  },
+  creator: { type : mongoose.Schema.Types.ObjectId, ref: "User", required: true}
 }, {
   collection: 'users'
 })
