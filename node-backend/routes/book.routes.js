@@ -6,10 +6,17 @@ let Book = require('../model/book.js');
 
 // Add Book
 bookRoute.route('/add-book').post( checkAuth, (req, res, next) => {
-  Book.create(req.body, (error, data) => {
+  const bookdata = new Book({
+    name: req.body.name ,
+    price: req.body.price,
+    description: req.body.description,
+    creator : req.userData.unqUserId,
+  });
+  Book.create(bookdata, (error, data) => {
     if (error) {
       return next(error)
     } else {
+      console.log(req.userData);
       res.json(data)
     }
   })
@@ -40,23 +47,23 @@ bookRoute.route('/read-book/:id').get( (req, res) => {
 
 // Update Book
 bookRoute.route('/update-book/:id').put( checkAuth, (req, res, next) => {
-  Book.findByIdAndUpdate(req.params.id,  {
-    $set: req.body
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-      console.log(error)
+ 
+  Book.updateOne({_id: req.params.id, creator: req.userData.unqUserId},  {
+    $set: req.body,
+  },  (error, data) => {
+    if (data.modifiedCount > 0) {
+      res.status(200).json({message: "updated successfully"});
+      console.log('Book updated successfully!');
     } else {
-      res.json(data)
-      console.log(req.userData);
-      console.log('Book updated successfully!')
+      res.status(401).json({message: "Not Authorized"});
+      console.log('User Not Authorized');
     }
   })
 })
 
 // Delete Book
 bookRoute.route('/delete-book/:id').delete(checkAuth, ( req, res, next) => {
-  Book.findByIdAndRemove(req.params.id, (error, data) => {
+  Book.findOneAndRemove({_id:req.params.id, creator: req.userData.unqUserId }, (error, data) => {
     if (error) {
       return next(error);
     } else {

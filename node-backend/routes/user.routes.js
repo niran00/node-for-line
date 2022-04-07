@@ -84,7 +84,8 @@ userRoute.route('/login').post((req, res, next) => {
       {expiresIn: '1h' }
     );
     res.status(200).json({
-      token: token
+      token: token,
+      tokenUserId: fetchedUser._id
     })
   })
   .catch(err =>{
