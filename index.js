@@ -36,7 +36,6 @@ app.all('/*', (req, res, next) => {
 })
 
 // API root
-
 app.use('/api', require('./node-backend/routes/book.routes'));
 app.use('/api', require('./node-backend/routes/user.routes'));
 
@@ -67,3 +66,4 @@ app.use(function (err, req, res, next) {
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).send(err.message);
 });
+
