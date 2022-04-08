@@ -7,7 +7,7 @@ let User = new Schema({
     type: String, require: true, unique: true 
   },
   userEmail: {
-    type: String, require: true, unique: true 
+    type: String
   },
   userName: {
     type: String, require: true
