@@ -85,7 +85,7 @@ userRoute.route('/login').post((req, res, next) => {
     );
     res.status(200).json({
       token: token,
-      tokenUserId: fetchedUser._id
+      tokenUserId: fetchedUser.userId
     })
   })
   .catch(err =>{

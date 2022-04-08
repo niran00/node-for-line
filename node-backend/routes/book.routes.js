@@ -10,7 +10,7 @@ bookRoute.route('/add-book').post( checkAuth, (req, res, next) => {
     name: req.body.name ,
     price: req.body.price,
     description: req.body.description,
-    creator : req.userData.unqUserId,
+    creator : req.userData.userId,
   });
   Book.create(bookdata, (error, data) => {
     if (error) {
@@ -48,7 +48,7 @@ bookRoute.route('/read-book/:id').get( (req, res) => {
 // Update Book
 bookRoute.route('/update-book/:id').put( checkAuth, (req, res, next) => {
  
-  Book.updateOne({_id: req.params.id, creator: req.userData.unqUserId},  {
+  Book.updateOne({_id: req.params.id, creator: req.userData.userId},  {
     $set: req.body,
   },  (error, data) => {
     if (data.modifiedCount > 0) {
@@ -63,7 +63,7 @@ bookRoute.route('/update-book/:id').put( checkAuth, (req, res, next) => {
 
 // Delete Book
 bookRoute.route('/delete-book/:id').delete(checkAuth, ( req, res, next) => {
-  Book.findOneAndRemove({_id:req.params.id, creator: req.userData.unqUserId }, (error, data) => {
+  Book.findOneAndRemove({_id:req.params.id, creator: req.userData.userId }, (error, data) => {
     if (error) {
       return next(error);
     } else {

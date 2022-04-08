@@ -11,7 +11,7 @@ let Book = new Schema({
   description: {
     type: String
   }, 
-  creator: { type : mongoose.Schema.Types.ObjectId, ref: "User", required: true}
+  creator: { type : mongoose.Schema.Types.String, ref: "User", required: true}
 
 }, {
   collection: 'books'
