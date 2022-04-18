@@ -15,7 +15,7 @@ let User = new Schema({
   userPhoneNumber: {
     type: String, require: true, unique: true  
   },
-  userOtpToken:{
+  userOTPToken:{
     type: String, require: true, unique: true  
   }
 }, {
