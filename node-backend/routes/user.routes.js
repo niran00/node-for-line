@@ -1,3 +1,4 @@
+const axios  = require('axios');
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -7,10 +8,11 @@ let User = require('../model/user.js');
 
 // Add User
 userRoute.route('/add-user').post((req, res, next) => {
-  User.create(req.body, (error, data) => {
+  User.create(req.body, async (error, data) => {
     if (error) {
       return next(error)
     } else {
+      await axios()
       res.json(data)
     }
   })
@@ -23,6 +25,16 @@ userRoute.route('/user').get(checkAuth, (req, res) => {
       return next(error)
     } else {
       res.json(data)
+
+      const sdk = require('api')('@thaibulksms/v1.0#3s3hunt2tktwn9w2l');
+      sdk.post('/v2/otp/request', {
+        msisdn: '0979535874',
+        secret: '8bf4445d027207205c3a046ddc3588ef',
+        key: '1730425814227283'
+      }, {Accept: 'application/json'})
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+
     }
   })
 })
