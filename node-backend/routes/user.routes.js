@@ -22,9 +22,9 @@ userRoute.route('/add-user').post((req, res, next) => {
         secret: '8bf4445d027207205c3a046ddc3588ef',
         key: '1730425814227283'
       }, {Accept: 'application/json'})
-        .then(res => console.log(res))
+        .then(res => console.log(res.token))
         .catch(err => console.error(err));
-
+      
     }
   })
 });

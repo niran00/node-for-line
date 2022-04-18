@@ -14,6 +14,9 @@ let User = new Schema({
   },
   userPhoneNumber: {
     type: String, require: true, unique: true  
+  },
+  userOTPtoken:{
+    type: String, require: true, unique: true  
   }
 }, {
   collection: 'users'
