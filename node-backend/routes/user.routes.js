@@ -15,15 +15,15 @@ userRoute.route('/add-user').post((req, res, next) => {
       // await axios()
       res.json(data)
 
-      const sdk = require('api')('@thaibulksms/v1.0#3s3hunt2tktwn9w2l');
+      // const sdk = require('api')('@thaibulksms/v1.0#3s3hunt2tktwn9w2l');
 
-      sdk.post('/v2/otp/request', {
-        msisdn: req.body.userPhoneNumber,
-        secret: '8bf4445d027207205c3a046ddc3588ef',
-        key: '1730425814227283'
-      }, {Accept: 'application/json'})
-        .then(res => console.log(res.token))
-        .catch(err => console.error(err));
+      // sdk.post('/v2/otp/request', {
+      //   msisdn: req.body.userPhoneNumber,
+      //   secret: '8bf4445d027207205c3a046ddc3588ef',
+      //   key: '1730425814227283'
+      // }, {Accept: 'application/json'})
+      //   .then(res => console.log(res.token))
+      //   .catch(err => console.error(err));
       
     }
   })
