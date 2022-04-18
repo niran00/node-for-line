@@ -1,4 +1,4 @@
-const axios  = require('axios');
+// const axios  = require('axios');
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -8,11 +8,11 @@ let User = require('../model/user.js');
 
 // Add User
 userRoute.route('/add-user').post((req, res, next) => {
-  User.create(req.body, async (error, data) => {
+  User.create(req.body, (error, data) => {
     if (error) {
       return next(error)
     } else {
-      await axios()
+      // await axios()
       res.json(data)
     }
   })
