@@ -16,7 +16,7 @@ let User = new Schema({
     type: String, require: true, unique: true  
   },
   userOtpToken:{
-    type: String, require: true, unique: true  
+    type: String
   }
 }, {
   collection: 'users'

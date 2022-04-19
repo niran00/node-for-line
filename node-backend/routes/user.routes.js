@@ -1,4 +1,5 @@
 // const axios  = require('axios');
+const twilio = require('twilio');
 const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -13,17 +14,19 @@ userRoute.route('/add-user').post((req, res, next) => {
       return next(error)
     } else {
       // await axios()
-      res.json(data)
+      // res.json(data)
 
-      const sdk = require('api')('@thaibulksms/v1.0#3s3hunt2tktwn9w2l');
-
-      sdk.post('/v2/otp/request', {
-        msisdn: req.body.userPhoneNumber,
-        secret: '8bf4445d027207205c3a046ddc3588ef',
-        key: '1730425814227283'
-      }, {Accept: 'application/json'})
-        .then(res => console.log(res.token))
-        .catch(err => console.error(err));
+      
+      const accountSid = "ACd22bd3d57c13ce2b74e8023d1bed43af";
+      const authToken = "76546b2e674c7168a28962f49de7334e";
+      const client = require('twilio')(accountSid, authToken);
+      
+      client.verify.services('VA13690b6a38eb6f20209a89e4e45c4c2f')
+      .verificationChecks
+      .create({to: req.body.userPhoneNumber, code: '1234'})
+      .then(verification_check => console.log(verification_check.status))
+      .catch(err => res.json(err.moreInfo) );
+      ;
       
     }
   })
