@@ -14,7 +14,7 @@ userRoute.route('/add-user').post((req, res, next) => {
       return next(error)
     } else {
       // await axios()
-      // res.json(data)
+      return res.json(data);
 
       
       const accountSid = "ACd22bd3d57c13ce2b74e8023d1bed43af";
