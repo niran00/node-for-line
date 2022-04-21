@@ -1,115 +1,142 @@
 // const axios  = require('axios');
-const twilio = require('twilio');
-const express = require('express');
+const twilio = require("twilio");
+const express = require("express");
 const app = express();
-const jwt = require('jsonwebtoken');
-let checkAuth = require('../middleware/check-auth.js');
+const jwt = require("jsonwebtoken");
+let checkAuth = require("../middleware/check-auth.js");
 const userRoute = express.Router();
-let User = require('../model/user.js');
+let User = require("../model/user.js");
+let ServiceClass = require("./service");
+const service = new ServiceClass();
+
+// OTP
+userRoute.route("/verify").post(async (req, res, next) => {
+  let test = await service.requestOtp(req.body.userPhoneNumber);
+  // let test = {
+  //   token: "test123",
+  //   refno: "654321",
+  // };
+  return res.status(200).json({
+    aMessage: "what we need",
+    otpTok: test.token,
+    otpPin: test.refno,
+  });
+  //   {
+  //     "status": "success",
+  //     "token": "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
+  //     "refno": "3L31J"
+  // }
+});
 
 // Add User
-userRoute.route('/add-user').post((req, res, next) => {
-  User.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      // await axios()
-      return res.json(data);
+userRoute.route("/add-user").post(async (req, res, next) => {
+  let data = req.body;
+  // let test = await service.requestOtp(req.body.userPhoneNumber);
+  let userDr = data[0];
+  let pin = data[1];
+  let token = data[2];
+  let verify = await service.verifyOTP(token, pin);
+  // let verify = {
+  //   token: "test123",
+  //   refno: "654321",
+  // };
+  if (verify.status == "success") {
+    User.create(req.body, (error, data) => {
+      if (error) {
+        return next(error);
+      } else {
+        // await axios()
+        res.json(data);
+      }
+    });
+  } else {
+    console.log(pin);
+    console.log(verify);
+  }
 
-      
-      const accountSid = "ACd22bd3d57c13ce2b74e8023d1bed43af";
-      const authToken = "76546b2e674c7168a28962f49de7334e";
-      const client = require('twilio')(accountSid, authToken);
-      
-      client.verify.services('VA13690b6a38eb6f20209a89e4e45c4c2f')
-      .verificationChecks
-      .create({to: req.body.userPhoneNumber, code: '1234'})
-      .then(verification_check => console.log(verification_check.status))
-      .catch(err => res.json(err.moreInfo) );
-      ;
-      
-    }
-  })
+  // res.json(test);
 });
 
 // Get all User
-userRoute.route('/user').get(checkAuth, (req, res) => {
+userRoute.route("/user").get(checkAuth, (req, res) => {
   User.find((error, data) => {
     if (error) {
-      return next(error)
+      return next(error);
     } else {
-      res.json(data)
+      res.json(data);
     }
-  })
-})
+  });
+});
 
 // Get User
-userRoute.route('/read-user/:id').get((req, res) => {
+userRoute.route("/read-user/:id").get((req, res) => {
   User.findById(req.params.id, (error, data) => {
     if (error) {
-      return next(error)
+      return next(error);
     } else {
-      res.json(data)
+      res.json(data);
     }
-  })
-})
-
+  });
+});
 
 // Update User
-userRoute.route('/update-user/:id').put((req, res, next) => {
-  User.findByIdAndUpdate(req.params.id, {
-    $set: req.body
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-      console.log(error)
-    } else {
-      res.json(data)
-      console.log('User updated successfully!')
+userRoute.route("/update-user/:id").put((req, res, next) => {
+  User.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: req.body,
+    },
+    (error, data) => {
+      if (error) {
+        return next(error);
+        console.log(error);
+      } else {
+        res.json(data);
+        console.log("User updated successfully!");
+      }
     }
-  })
-})
+  );
+});
 
 // Delete User
-userRoute.route('/delete-user/:id').delete((req, res, next) => {
+userRoute.route("/delete-user/:id").delete((req, res, next) => {
   User.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {
       res.status(200).json({
-        msg: data
-      })
+        msg: data,
+      });
     }
-  })
-})
+  });
+});
 
 //Login
-userRoute.route('/login').post((req, res, next) => {
+userRoute.route("/login").post((req, res, next) => {
   let fetchedUser;
   User.findOne({ userId: req.body.userId })
-  .then(user => {
-    if(!user){
-      return res.status(404).json({
-        message: 'auth failed'
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          message: "auth failed",
+        });
+      }
+      fetchedUser = user;
+      const token = jwt.sign(
+        { userId: fetchedUser.userId, unqUserId: fetchedUser._id },
+        "this_is_the_secret",
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({
+        token: token,
+        tokenUserId: fetchedUser.userId,
       });
-    }  
-    fetchedUser = user;
-    const token = jwt.sign(
-      { userId: fetchedUser.userId, unqUserId: fetchedUser._id },
-      'this_is_the_secret',
-      {expiresIn: '1h' }
-    );
-    res.status(200).json({
-      token: token,
-      tokenUserId: fetchedUser.userId
     })
-  })
-  .catch(err =>{
-    return res.status(404).json({
-      message: 'auth failed, not successful'
+    .catch((err) => {
+      return res.status(404).json({
+        message: "auth failed, not successful",
+      });
     });
-  });
-
 });
 
 module.exports = userRoute;
