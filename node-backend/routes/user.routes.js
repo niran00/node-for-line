@@ -11,11 +11,11 @@ const service = new ServiceClass();
 
 // OTP
 userRoute.route("/verify").post(async (req, res, next) => {
-  let test = await service.requestOtp(req.body.userPhoneNumber);
-  // let test = {
-  //   token: "test123",
-  //   refno: "654321",
-  // };
+  // let test = await service.requestOtp(req.body.userPhoneNumber);
+  let test = {
+    token: "test123",
+    refno: "654321",
+  };
   return res.status(200).json({
     aMessage: "what we need",
     otpTok: test.token,
@@ -35,18 +35,22 @@ userRoute.route("/add-user").post(async (req, res, next) => {
   let userDr = data[0];
   let pin = data[1];
   let token = data[2];
-  let verify = await service.verifyOTP(token, pin);
-  // let verify = {
-  //   token: "test123",
-  //   refno: "654321",
-  // };
+  // let verify = await service.verifyOTP(token, pin);
+  let verify = {
+    status: "success",
+    token: "test123",
+    refno: "654321",
+  };
   if (verify.status == "success") {
-    User.create(req.body, (error, data) => {
+    User.create(userDr, (error, data) => {
       if (error) {
+        console.log("no");
+        console.log(userDr);
         return next(error);
       } else {
         // await axios()
-        res.json(data);
+        res.json(userDr);
+        console.log("pass");
       }
     });
   } else {
