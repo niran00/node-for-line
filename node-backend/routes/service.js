@@ -1,5 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
+const OTP_KEY = "1724714224731529";
+const OTP_SECRET = "3ae964a18447ad4545b15e3648abb059";
 
 module.exports = class ServiceClass {
   async requestOtp(phone_number) {
@@ -11,8 +13,8 @@ module.exports = class ServiceClass {
         "Content-Type": "application/json",
       },
       data: {
-        key: process.env.OTP_KEY,
-        secret: process.env.OTP_SECRET,
+        key: OTP_KEY,
+        secret: OTP_SECRET,
         msisdn: phone_number,
       },
     };
@@ -36,8 +38,8 @@ module.exports = class ServiceClass {
         "Content-Type": "application/json",
       },
       data: {
-        key: process.env.OTP_KEY,
-        secret: process.env.OTP_SECRET,
+        key: OTP_KEY,
+        secret: OTP_SECRET,
         token: token,
         pin: pin,
       },
