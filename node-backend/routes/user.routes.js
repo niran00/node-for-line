@@ -7,7 +7,7 @@ let User = require("../model/user.js");
 let ServiceClass = require("./service");
 const service = new ServiceClass();
 
-// OTP
+// OTP Request
 userRoute.route("/verify").post(async (req, res, next) => {
   let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
 
