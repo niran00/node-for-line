@@ -11,11 +11,26 @@ const service = new ServiceClass();
 
 // OTP
 userRoute.route("/verify").post(async (req, res, next) => {
-  // let test = await service.requestOtp(req.body.userPhoneNumber);
-  let test = {
-    token: "test123",
-    refno: "654321",
-  };
+  // const sdk = require("api")("@thaibulksms/v1.0#3s3hunt2tktwn9w2l");
+
+  // await sdk
+  //   .post(
+  //     "/v2/otp/request",
+  //     {
+  //       key: "1724714224731529",
+  //       secret: "3ae964a18447ad4545b15e3648abb059",
+  //       msisdn: req.body.userPhoneNumber,
+  //     },
+  //     { Accept: "application/json" }
+  //   )
+  //   .then((res) => console.log(res))
+  //   .catch((err) => console.error(err));
+
+  let test = await service.requestOtp(req.body.userPhoneNumber);
+  // let res = {
+  //   token: "test123",
+  //   refno: "654321",
+  // };
   return res.status(200).json({
     aMessage: "what we need",
     otpTok: test.token,
