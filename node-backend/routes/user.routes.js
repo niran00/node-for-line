@@ -1,4 +1,5 @@
 // const axios  = require('axios');
+
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
@@ -40,24 +41,22 @@ userRoute.route("/add-user").post(async (req, res, next) => {
   //   token: "test123",
   //   refno: "654321",
   // };
-  // if (verify.status == "success") {
-
-  // } else {
-  //   console.log(pin);
-  //   console.log(verify);
-  // }
-
-  User.create(userDr, (error, data) => {
-    if (error) {
-      console.log("no");
-      console.log(userDr);
-      return next(error);
-    } else {
-      // await axios()
-      res.json(userDr);
-      console.log("pass");
-    }
-  });
+  if (verify.status == "success") {
+    User.create(userDr, (error, data) => {
+      if (error) {
+        console.log("no");
+        console.log(userDr);
+        return next(error);
+      } else {
+        // await axios()
+        res.json(userDr);
+        console.log("pass");
+      }
+    });
+  } else {
+    console.log(pin);
+    console.log(verify);
+  }
 
   // res.json(test);
 });
