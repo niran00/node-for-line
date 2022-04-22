@@ -46,16 +46,16 @@ userRoute.route("/verify").post(async (req, res, next) => {
 // Add User
 userRoute.route("/add-user").post(async (req, res, next) => {
   let data = req.body;
-  // let test = await service.requestOtp(req.body.userPhoneNumber);
+  let test = await service.requestOtp(req.body.userPhoneNumber);
   let userDr = data[0];
   let pin = data[1];
   let token = data[2];
   // let verify = await service.verifyOTP(token, pin);
-  let verify = {
-    status: "success",
-    token: "test123",
-    refno: "654321",
-  };
+  // let verify = {
+  //   status: "success",
+  //   token: "test123",
+  //   refno: "654321",
+  // };
   if (verify.status == "success") {
     User.create(userDr, (error, data) => {
       if (error) {
