@@ -40,22 +40,24 @@ userRoute.route("/add-user").post(async (req, res, next) => {
   //   token: "test123",
   //   refno: "654321",
   // };
-  if (verify.status == "success") {
-    User.create(userDr, (error, data) => {
-      if (error) {
-        console.log("no");
-        console.log(userDr);
-        return next(error);
-      } else {
-        // await axios()
-        res.json(userDr);
-        console.log("pass");
-      }
-    });
-  } else {
-    console.log(pin);
-    console.log(verify);
-  }
+  // if (verify.status == "success") {
+
+  // } else {
+  //   console.log(pin);
+  //   console.log(verify);
+  // }
+
+  User.create(userDr, (error, data) => {
+    if (error) {
+      console.log("no");
+      console.log(userDr);
+      return next(error);
+    } else {
+      // await axios()
+      res.json(userDr);
+      console.log("pass");
+    }
+  });
 
   // res.json(test);
 });
