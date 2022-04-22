@@ -11,11 +11,11 @@ const service = new ServiceClass();
 
 // OTP
 userRoute.route("/verify").post(async (req, res, next) => {
-  let test = await service.requestOtp(req.body.userPhoneNumber);
-  // let test = {
-  //   token: "test123",
-  //   refno: "654321",
-  // };
+  // let test = await service.requestOtp(req.body.userPhoneNumber);
+  let test = {
+    token: "test123",
+    refno: "654321",
+  };
   return res.status(200).json({
     aMessage: "what we need",
     otpTok: test.token,

@@ -42,7 +42,7 @@ app.all("/*", (req, res, next) => {
     );
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, Content-Type, Authorization, Content-Length, X-Requested-With, Accept"
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
   );
   next();
 });

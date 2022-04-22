@@ -30,8 +30,7 @@ module.exports = class ServiceClass {
       method: "post",
       url: "https://otp.thaibulksms.com/v2/otp/verify",
       headers: {
-        "Access-Control-Allow-Origin": "*/*",
-        "content-type": "application/json; charset=utf-8",
+        "Content-Type": "application/json",
         // Authorization: `Bearer fake_jwt`,
       },
       data: {
