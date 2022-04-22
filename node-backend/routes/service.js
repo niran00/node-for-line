@@ -22,6 +22,7 @@ module.exports = class ServiceClass {
           resolve(response.data);
         })
         .catch((e) => {
+          console.log(e);
           reject(e);
         });
     });
