@@ -1,5 +1,3 @@
-// const axios  = require('axios');
-
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
@@ -11,30 +9,12 @@ const service = new ServiceClass();
 
 // OTP
 userRoute.route("/verify").post(async (req, res, next) => {
-  // const sdk = require("api")("@thaibulksms/v1.0#3s3hunt2tktwn9w2l");
+  let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
 
-  // await sdk
-  //   .post(
-  //     "/v2/otp/request",
-  //     {
-  //       key: "1724714224731529",
-  //       secret: "3ae964a18447ad4545b15e3648abb059",
-  //       msisdn: req.body.userPhoneNumber,
-  //     },
-  //     { Accept: "application/json" }
-  //   )
-  //   .then((res) => console.log(res))
-  //   .catch((err) => console.error(err));
-
-  let test = await service.requestOtp(req.body.userPhoneNumber);
-  // let res = {
-  //   token: "test123",
-  //   refno: "654321",
-  // };
   return res.status(200).json({
     aMessage: "what we need",
-    otpTok: test.token,
-    otpPin: test.refno,
+    otpTok: fireOtp.token,
+    otpPin: fireOtp.refno,
   });
   //   {
   //     "status": "success",
@@ -50,11 +30,13 @@ userRoute.route("/add-user").post(async (req, res, next) => {
   let pin = data[1];
   let token = data[2];
   let verify = await service.verifyOTP(token, pin);
+
   // let verify = {
   //   status: "success",
   //   token: "test123",
   //   refno: "654321",
   // };
+
   if (verify.status == "success") {
     User.create(userDr, (error, data) => {
       if (error) {
@@ -62,7 +44,6 @@ userRoute.route("/add-user").post(async (req, res, next) => {
         console.log(userDr);
         return next(error);
       } else {
-        // await axios()
         res.json(userDr);
         console.log("pass");
       }
