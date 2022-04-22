@@ -35,28 +35,30 @@ userRoute.route("/add-user").post(async (req, res, next) => {
   let userDr = data[0];
   let pin = data[1];
   let token = data[2];
-  let verify = await service.verifyOTP(token, pin);
+
+  User.create(userDr, (error, data) => {
+    if (error) {
+      console.log("no");
+      console.log(userDr);
+      return next(error);
+    } else {
+      // await axios()
+      res.json(userDr);
+      console.log("pass");
+    }
+  });
+  // let verify = await service.verifyOTP(token, pin);
   // let verify = {
   //   status: "success",
   //   token: "test123",
   //   refno: "654321",
   // };
-  if (verify.status == "success") {
-    User.create(userDr, (error, data) => {
-      if (error) {
-        console.log("no");
-        console.log(userDr);
-        return next(error);
-      } else {
-        // await axios()
-        res.json(userDr);
-        console.log("pass");
-      }
-    });
-  } else {
-    console.log(pin);
-    console.log(verify);
-  }
+
+  // if (verify.status == "success") {
+  // } else {
+  //   console.log(pin);
+  //   console.log(verify);
+  // }
 
   // res.json(test);
 });
