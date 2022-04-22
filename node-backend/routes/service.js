@@ -7,8 +7,7 @@ module.exports = class ServiceClass {
       method: "post",
       url: "https://otp.thaibulksms.com/v2/otp/request",
       headers: {
-        "Access-Control-Allow-Origin": "*/*",
-        "content-type": "application/json; charset=utf-8",
+        "Content-Type": "application/json",
       },
       data: {
         key: process.env.OTP_KEY,
@@ -31,8 +30,7 @@ module.exports = class ServiceClass {
       method: "post",
       url: "https://otp.thaibulksms.com/v2/otp/verify",
       headers: {
-        "Access-Control-Allow-Origin": "*/*",
-        "content-type": "application/json; charset=utf-8",
+        "Content-Type": "application/json",
         // Authorization: `Bearer fake_jwt`,
       },
       data: {
