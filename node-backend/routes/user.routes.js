@@ -12,6 +12,7 @@ userRoute.route("/verify").post(async (req, res, next) => {
   let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
 
   return res.status(200).json({
+    aMessage: "what we need",
     otpTok: fireOtp.token,
     otpPin: fireOtp.refno,
   });
