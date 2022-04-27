@@ -118,70 +118,31 @@ userRoute.route("/update-user/:id").put((req, res, next) => {
   );
 });
 
-// OTP Request
+// OTP Request - New Number
 userRoute.route("/verify-new-number").post(async (req, res, next) => {
-  // let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-
-  // let fireOtp = {
-  //   status: "success",
-  //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
-  //   refno: "3L31J",
-  // };
-
-  // User.findOne(
-  //   { userPhoneNumber: req.body.userPhoneNumber },
-  //   async function (err, foundUser) {
-  //     if (!foundUser) {
-  //       console.log("Number Not Found");
-  //       let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-  //       return res.status(200).json({
-  //         otpTok: fireOtp.token,
-  //         otpPin: fireOtp.refno,
-  //       });
-  //     } else {
-  //       console.log("Number exists");
-  //       return res.status(200).json({
-  //         otpTok: "none",
-  //       });
-  //     }
-  //   }
-  // );
-
-  // Update New Number
-
-  let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-
-  // let fireOtp = {
-  //   status: "success",
-  //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
-  //   refno: "654321",
-  // };
-
-  return res.status(200).json({
-    otpTok: fireOtp.token,
-    otpPin: fireOtp.refno,
-  });
-
-  // userRoute.route("/update-user/:id").put((req, res, next) => {
-  //   User.findByIdAndUpdate(
-  //     req.params.id,
-  //     {
-  //       $set: {
-  //         userName: req.body.userName,
-  //         userPhoneNumber: req.body.userPhoneNumber,
-  //       },
-  //     },
-  //     (error, data) => {
-  //       if (error) {
-  //         return next(error);
-  //         console.log(error);
-  //       } else {
-  //         res.json(data);
-  //         console.log("User updated successfully!");
-  //       }
-  //     }
-  //   );
-  // });
+  User.findOne(
+    { userPhoneNumber: req.body.userPhoneNumber },
+    async function (err, foundUser) {
+      if (!foundUser) {
+        console.log("Number Not Found");
+        let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
+        // let fireOtp = {
+        //   status: "success",
+        //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
+        //   refno: "3L31J",
+        // };
+        return res.status(200).json({
+          otpTok: fireOtp.token,
+          otpPin: fireOtp.refno,
+        });
+      } else {
+        console.log("Number exists");
+        return res.status(200).json({
+          otpTok: "none",
+        });
+      }
+    }
+  );
 });
 
 // Update User Number
