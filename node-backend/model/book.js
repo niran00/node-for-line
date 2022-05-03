@@ -17,6 +17,10 @@ let Book = new Schema(
       ref: "User",
       required: true,
     },
+    imagePath: {
+      type: String,
+      required: true,
+    },
   },
   {
     collection: "books",
