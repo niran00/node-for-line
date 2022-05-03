@@ -34,7 +34,7 @@ bookRoute
     checkAuth,
     multer({ storage: storage }).single("image"),
     (req, res, next) => {
-      const imgurl = req.protocol + "://" + req.get("host");
+      const imgurl = req.secure + "://" + req.get("host");
       const bookdata = new Book({
         name: req.body.name,
         price: req.body.price,
