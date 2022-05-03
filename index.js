@@ -51,7 +51,7 @@ app.all("/*", (req, res, next) => {
 app.use("/api", require("./node-backend/routes/book.routes"));
 app.use("/api", require("./node-backend/routes/user.routes"));
 
-app.use("/images", express.static(path.join("./node-backend/images")));
+app.use("/images", express.static(path.join("/node-backend/images")));
 // PORT
 const port = process.env.PORT || 8000;
 
