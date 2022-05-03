@@ -39,6 +39,9 @@ bookRoute
         name: req.body.name,
         price: req.body.price,
         description: req.body.description,
+        details1: req.body.details1,
+        details2: req.body.details2,
+        details3: req.body.details3,
         creator: req.userData.userId,
         imagePath: imgurl + "/images/" + req.file.filename,
       });
@@ -54,7 +57,7 @@ bookRoute
   );
 
 // Get all Book
-bookRoute.route("/").get(checkAuth, (req, res) => {
+bookRoute.route("/").get((req, res) => {
   Book.find((error, data) => {
     if (error) {
       return next(error);
