@@ -225,6 +225,7 @@ userRoute.route("/login").post((req, res, next) => {
       res.status(200).json({
         token: token,
         tokenUserId: fetchedUser.userId,
+        expiresIn: 3600,
       });
     })
     .catch((err) => {
