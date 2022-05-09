@@ -22,12 +22,12 @@ userRoute.route("/verify").post((req, res, next) => {
     async function (err, foundUser) {
       if (!foundUser) {
         console.log("Number Not Found");
-        // let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-        let fireOtp = {
-          status: "success",
-          token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
-          refno: "3L31J",
-        };
+        let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
+        // let fireOtp = {
+        //   status: "success",
+        //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
+        //   refno: "3L31J",
+        // };
         return res.status(200).json({
           otpTok: fireOtp.token,
           otpPin: fireOtp.refno,
@@ -125,12 +125,12 @@ userRoute.route("/verify-new-number").post(async (req, res, next) => {
     async function (err, foundUser) {
       if (!foundUser) {
         console.log("Number Not Found");
-        // let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-        let fireOtp = {
-          status: "success",
-          token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
-          refno: "3L31J",
-        };
+        let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
+        // let fireOtp = {
+        //   status: "success",
+        //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
+        //   refno: "3L31J",
+        // };
         return res.status(200).json({
           otpTok: fireOtp.token,
           otpPin: fireOtp.refno,
@@ -214,7 +214,6 @@ userRoute.route("/login").post((req, res, next) => {
       if (!user) {
         return res.status(404).json({
           message: "auth failed",
-          checkUser: "none",
         });
       }
       fetchedUser = user;
@@ -227,7 +226,6 @@ userRoute.route("/login").post((req, res, next) => {
         token: token,
         tokenUserId: fetchedUser.userId,
         expiresIn: 3600,
-        message: "auth pass",
       });
     })
     .catch((err) => {

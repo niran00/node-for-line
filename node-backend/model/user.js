@@ -21,6 +21,10 @@ let User = new Schema(
       require: true,
       unique: true,
     },
+    userConsent: {
+      type: String,
+      require: true,
+    },
   },
   {
     collection: "users",
