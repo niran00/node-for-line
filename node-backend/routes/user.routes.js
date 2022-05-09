@@ -9,14 +9,6 @@ const service = new ServiceClass();
 
 // OTP Request
 userRoute.route("/verify").post((req, res, next) => {
-  // let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-
-  // let fireOtp = {
-  //   status: "success",
-  //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
-  //   refno: "3L31J",
-  // };
-
   User.findOne(
     { userPhoneNumber: req.body.userPhoneNumber },
     async function (err, foundUser) {
