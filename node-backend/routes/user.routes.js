@@ -57,9 +57,9 @@ userRoute.route("/add-user").post(async (req, res, next) => {
       } else {
         res.json(userDr);
         console.log("pass");
-        const lienUserId = userDr.userId;
+        const lineUserId = userDr.userId;
         client.linkRichMenuToUser(
-          lienUserId,
+          lineUserId,
           "richmenu-0b0eb4b6a40329dc08041d3580cf41f8"
         );
       }
