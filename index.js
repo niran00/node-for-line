@@ -19,6 +19,18 @@ mongoose
       console.log("Database error: " + error);
     }
   );
+const line = require("@line/bot-sdk");
+
+let chanToken =
+  "/ufTwLtxJhJZdtzpSvYWASESMtoCwVCUsLVxK53VwTEdwakV4bms8orkp+T+yafQ4oBZHFx6KN316jLQeUIa5bIOQ+pRMfVf5S8SK4FxDTNxmtci12S1fXhn95HLT8GhDizvPs4MGqSkkspSqWwHDgdB04t89/1O/w1cDnyilFU=";
+let secretToken = "8397e54757006206a0a5339ef294357b";
+
+const config = {
+  channelAccessToken: chanToken,
+  channelSecret: secretToken,
+};
+
+const client = new line.Client(config);
 
 const app = express();
 app.use(bodyParser.json());
