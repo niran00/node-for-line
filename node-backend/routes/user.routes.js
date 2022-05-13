@@ -7,17 +7,6 @@ let User = require("../model/user.js");
 let ServiceClass = require("./service");
 const service = new ServiceClass();
 
-const line = require("@line/bot-sdk");
-
-const chanToken =
-  "/ufTwLtxJhJZdtzpSvYWASESMtoCwVCUsLVxK53VwTEdwakV4bms8orkp+T+yafQ4oBZHFx6KN316jLQeUIa5bIOQ+pRMfVf5S8SK4FxDTNxmtci12S1fXhn95HLT8GhDizvPs4MGqSkkspSqWwHDgdB04t89/1O/w1cDnyilFU=";
-const secretToken = "37c342cbd514b4d228f09eb89dadef90";
-
-const client = new line.Client({
-  channelAccessToken: chanToken,
-  channelSecret: secretToken,
-});
-
 // OTP Request
 userRoute.route("/verify").post((req, res, next) => {
   User.findOne(
@@ -25,12 +14,12 @@ userRoute.route("/verify").post((req, res, next) => {
     async function (err, foundUser) {
       if (!foundUser) {
         console.log("Number Not Found");
-        // let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
-        let fireOtp = {
-          status: "success",
-          token: "654321",
-          refno: "654321",
-        };
+        let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
+        // let fireOtp = {
+        //   status: "success",
+        //   token: "654321",
+        //   refno: "654321",
+        // };
         return res.status(200).json({
           otpTok: fireOtp.token,
           otpPin: fireOtp.refno,
@@ -51,19 +40,13 @@ userRoute.route("/add-user").post(async (req, res, next) => {
   let userDr = data[0];
   let pin = data[1];
   let token = data[2];
-  // let verify = await service.verifyOTP(token, pin);
+  let verify = await service.verifyOTP(token, pin);
 
-  const lineUserId = "U4a20ad686ba7827c293b71dc77930331";
-  client.linkRichMenuToUser(
-    lineUserId,
-    "richmenu-5958821b45ace6ace7704ab191673476"
-  );
-
-  let verify = {
-    status: "success",
-    token: "654321",
-    refno: "654321",
-  };
+  // let verify = {
+  //   status: "success",
+  //   token: "654321",
+  //   refno: "654321",
+  // };
 
   if (verify.status == "success") {
     User.create(userDr, (error, data) => {
@@ -134,7 +117,7 @@ userRoute.route("/verify-new-number").post(async (req, res, next) => {
     async function (err, foundUser) {
       if (!foundUser) {
         console.log("Number Not Found");
-        // let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
+        let fireOtp = await service.requestOtp(req.body.userPhoneNumber);
         // let fireOtp = {
         //   status: "success",
         //   token: "kRpKN6vjmAr7Y6AF7I63BbEwMVq845nx",
@@ -217,10 +200,6 @@ userRoute.route("/delete-user/:id").delete((req, res, next) => {
 
 //Login
 userRoute.route("/login").post((req, res, next) => {
-  const lineUserId = req.body.userId;
-  const toRich = "richmenu-0b0eb4b6a40329dc08041d3580cf41f8";
-  client.linkRichMenuToUser(lineUserId, toRich);
-
   let fetchedUser;
   User.findOne({ userId: req.body.userId })
     .then((user) => {
