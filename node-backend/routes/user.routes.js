@@ -217,7 +217,7 @@ userRoute.route("/delete-user/:id").delete((req, res, next) => {
 
 //Login
 userRoute.route("/login").post((req, res, next) => {
-  const lineUserId = "U4a20ad686ba7827c293b71dc77930331";
+  const lineUserId = req.body.userId;
   const toRich = "richmenu-0b0eb4b6a40329dc08041d3580cf41f8";
   client.linkRichMenuToUser(lineUserId, toRich);
 
