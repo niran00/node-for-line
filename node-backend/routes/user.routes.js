@@ -7,6 +7,15 @@ let User = require("../model/user.js");
 let ServiceClass = require("./service");
 const service = new ServiceClass();
 
+const line = require("@line/bot-sdk");
+const config = {
+  channelAccessToken:
+    "/ufTwLtxJhJZdtzpSvYWASESMtoCwVCUsLVxK53VwTEdwakV4bms8orkp+T+yafQ4oBZHFx6KN316jLQeUIa5bIOQ+pRMfVf5S8SK4FxDTNxmtci12S1fXhn95HLT8GhDizvPs4MGqSkkspSqWwHDgdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "U8a47d65a18c538bfaf0dac952aaaabaf",
+};
+
+const client = new line.Client(config);
+
 // OTP Request
 userRoute.route("/verify").post((req, res, next) => {
   User.findOne(
@@ -200,6 +209,11 @@ userRoute.route("/delete-user/:id").delete((req, res, next) => {
 
 //Login
 userRoute.route("/login").post((req, res, next) => {
+  client.linkRichMenuToUser(
+    req.body.userId,
+    "richmenu-827ba47b637ccdf3abae9c906b058b43"
+  );
+
   let fetchedUser;
   User.findOne({ userId: req.body.userId })
     .then((user) => {
