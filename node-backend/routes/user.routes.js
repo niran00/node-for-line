@@ -15,6 +15,7 @@ const secretToken = "37c342cbd514b4d228f09eb89dadef90";
 
 const client = new line.Client({
   channelAccessToken: chanToken,
+  channelSecret: secretToken,
 });
 
 // OTP Request
