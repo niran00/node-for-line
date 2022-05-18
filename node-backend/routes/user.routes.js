@@ -203,6 +203,12 @@ userRoute.route("/delete-user/:id").delete((req, res, next) => {
       res.status(200).json({
         msg: data,
       });
+      const lineId = data.userId;
+
+      client.linkRichMenuToUser(
+        lineId,
+        "richmenu-827ba47b637ccdf3abae9c906b058b43"
+      );
     }
   });
 });
