@@ -215,11 +215,6 @@ userRoute.route("/delete-user/:id").delete((req, res, next) => {
 
 //Login
 userRoute.route("/login").post((req, res, next) => {
-  client.linkRichMenuToUser(
-    req.body.userId,
-    "richmenu-058ba5298bad82333f8342e7a030e32d"
-  );
-
   let fetchedUser;
   User.findOne({ userId: req.body.userId })
     .then((user) => {
@@ -239,6 +234,10 @@ userRoute.route("/login").post((req, res, next) => {
         tokenUserId: fetchedUser.userId,
         expiresIn: 3600,
       });
+      client.linkRichMenuToUser(
+        req.body.userId,
+        "richmenu-058ba5298bad82333f8342e7a030e32d"
+      );
     })
     .catch((err) => {
       return res.status(404).json({
