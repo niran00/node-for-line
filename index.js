@@ -4,6 +4,7 @@ let express = require("express"),
   cors = require("cors"),
   bodyParser = require("body-parser"),
   mongoDb = require("./database/db");
+const axios = require("axios").default;
 createError = require("http-errors");
 mongoose.Promise = global.Promise;
 mongoose
