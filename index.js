@@ -82,3 +82,62 @@ app.use(function (err, req, res, next) {
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).send(err.message);
 });
+
+const lineConfig = {
+  channelAccessToken:
+    "/ufTwLtxJhJZdtzpSvYWASESMtoCwVCUsLVxK53VwTEdwakV4bms8orkp+T+yafQ4oBZHFx6KN316jLQeUIa5bIOQ+pRMfVf5S8SK4FxDTNxmtci12S1fXhn95HLT8GhDizvPs4MGqSkkspSqWwHDgdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "U8a47d65a18c538bfaf0dac952aaaabaf",
+};
+
+const client = new line.Client(lineConfig);
+
+app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
+  try {
+    const events = req.body.events;
+    console.log("event=>>>>", events);
+    return events.length > 0
+      ? await events.map((item) => handleEvent(item))
+      : res.status(200).send("OK");
+  } catch (error) {
+    res.status(500).end();
+  }
+});
+
+let productdata = [];
+const handleEvent = async (event) => {
+  const { data } = await axios.get(
+    `https://afternoon-brook-66471.herokuapp.com/api`
+  );
+  console.log("data=>>>>", data);
+  productdata = data;
+  const { synonyms } = productdata;
+  let str = [];
+
+  productdata.forEach((result, i) => {
+    str.push({
+      action: {
+        text: productdata.length !== i ? `${result.name}` : result,
+        type: "message",
+        label: "เลือก",
+      },
+      imageUrl: productdata.length !== i ? `${result.imagePath}` : result,
+    });
+  });
+
+  //console.log(event);
+  // if (event.type !== "message" || event.message.type !== "text") {
+  //   return null;
+  // } else if (event.type === "message") {
+
+  // console.log(str);
+
+  return client.replyMessage(event.replyToken, {
+    type: "template",
+    altText: "this is a image carousel template",
+    template: {
+      columns: str,
+      type: "image_carousel",
+    },
+  });
+  // }
+};
