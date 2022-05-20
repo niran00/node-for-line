@@ -86,7 +86,7 @@ app.use(function (err, req, res, next) {
 const lineConfig = {
   channelAccessToken:
     "/ufTwLtxJhJZdtzpSvYWASESMtoCwVCUsLVxK53VwTEdwakV4bms8orkp+T+yafQ4oBZHFx6KN316jLQeUIa5bIOQ+pRMfVf5S8SK4FxDTNxmtci12S1fXhn95HLT8GhDizvPs4MGqSkkspSqWwHDgdB04t89/1O/w1cDnyilFU=",
-  channelSecret: "U8a47d65a18c538bfaf0dac952aaaabaf",
+  channelSecret: "f55acfa747d74bae93e4babd97b467a8",
 };
 
 const client = new line.Client(lineConfig);
