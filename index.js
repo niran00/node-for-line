@@ -66,7 +66,7 @@ const handleEvent = async (event) => {
     });
   });
 
-  if (!event.type === "message" || !event.text === "Products") {
+  if (!event.type === "message" || !event.text == "Products") {
     return client.replyMessage(event.replyToken, {
       type: "template",
       altText: "this is a image carousel template",
