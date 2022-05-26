@@ -66,15 +66,16 @@ const handleEvent = async (event) => {
     });
   });
 
-  return client.replyMessage(event.replyToken, {
-    type: "template",
-    altText: "this is a image carousel template",
-    template: {
-      columns: str,
-      type: "image_carousel",
-    },
-  });
-  // }
+  if (event.type === "message" && event.text === "products") {
+    return client.replyMessage(event.replyToken, {
+      type: "template",
+      altText: "this is a image carousel template",
+      template: {
+        columns: str,
+        type: "image_carousel",
+      },
+    });
+  }
 };
 
 app.use(bodyParser.json());
