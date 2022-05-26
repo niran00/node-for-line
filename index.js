@@ -47,6 +47,7 @@ app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
 
 let productdata = [];
 const handleEvent = async (event) => {
+  console.log(event);
   const { data } = await axios.get(
     `https://afternoon-brook-66471.herokuapp.com/api`
   );
@@ -66,7 +67,7 @@ const handleEvent = async (event) => {
     });
   });
 
-  if (!event.type === "message" || !event.text == "Products") {
+  if (event.text === "Products") {
     return client.replyMessage(event.replyToken, {
       type: "template",
       altText: "this is a image carousel template",
