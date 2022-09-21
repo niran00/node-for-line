@@ -77,11 +77,8 @@ const handleEvent = async (event) => {
 
   if (event.text === "Products") {
     return client.replyMessage(event.replyToken, {
-      type: "template",
-      altText: "this is a image carousel template",
-      template: {
-        columns: str,
-        type: "image_carousel",
+      type: "text",
+      text: "cool"
       },
     });
   }
