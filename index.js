@@ -13,7 +13,7 @@ mongoose
   })
   .then(
     () => {
-      console.log("Database was sucessfully connected 123");
+      console.log("Database was sucessfully connected 1234");
     },
     (error) => {
       console.log("Database error: " + error);
