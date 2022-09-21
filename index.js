@@ -55,14 +55,6 @@ let productdata = [];
 const handleEvent = async (event) => {
   console.log(event);
 
-  const { data } = await axios.get(
-    `https://line-node-backend.herokuapp.com/api`
-  );
-
-  console.log("data=>>>>", data);
-  productdata = data;
-  
-
   if (event.text === "Products") {
     client.replyMessage(event.replyToken,{
       type: 'text' , 
