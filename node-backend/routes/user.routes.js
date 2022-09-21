@@ -10,8 +10,8 @@ const service = new ServiceClass();
 const line = require("@line/bot-sdk");
 const config = {
   channelAccessToken:
-    "/ufTwLtxJhJZdtzpSvYWASESMtoCwVCUsLVxK53VwTEdwakV4bms8orkp+T+yafQ4oBZHFx6KN316jLQeUIa5bIOQ+pRMfVf5S8SK4FxDTNxmtci12S1fXhn95HLT8GhDizvPs4MGqSkkspSqWwHDgdB04t89/1O/w1cDnyilFU=",
-  channelSecret: "U8a47d65a18c538bfaf0dac952aaaabaf",
+    "GlIvyT5Kt2S3FqX1MFMu90A+uMPnDuz7fR3nHmZP8f3V4QB/Bh1csJvnYXt7xapPC0e6aFBg+t6SLErNHQK6rYhLlNVUenXSJfjj4V0AggMLjCZsSMrRnF/3IreQpKk1HK/ijLn3+eVuP9Xy0UjwRQdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "6dcda73ae3ab0abb0f84cae7f7c0d4c1",
 };
 
 const client = new line.Client(config);
