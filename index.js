@@ -47,7 +47,7 @@ app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
 
 const handleEvent = async (event) => {
   console.log(event)
-  client.replyMessage(event.replyToken,{type:text, text:"test" })
+  client.replyMessage(event.replyToken,{type: 'text' , text:"test" })
 }
 
 // let productdata = [];
