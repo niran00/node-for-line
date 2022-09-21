@@ -61,24 +61,12 @@ const handleEvent = async (event) => {
 
   console.log("data=>>>>", data);
   productdata = data;
-  const { synonyms } = productdata;
-  let str = [];
-
-  productdata.forEach((result, i) => {
-    str.push({
-      action: {
-        text: productdata.length !== i ? `${result.name}` : result,
-        type: "message",
-        label: "เลือก",
-      },
-      imageUrl: productdata.length !== i ? `${result.imagePath}` : result,
-    });
-  });
+  
 
   if (event.text === "Products") {
-    client.replyMessage(event.replyToken, {
-      type: "text",
-      text: "cool"
+    client.replyMessage(event.replyToken,{
+      type: 'text' , 
+      text:"test"
     });
   }
   
