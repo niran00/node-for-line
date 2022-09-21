@@ -79,7 +79,6 @@ const handleEvent = async (event) => {
     return client.replyMessage(event.replyToken, {
       type: "text",
       text: "cool"
-      },
     });
   }
   
