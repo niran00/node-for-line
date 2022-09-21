@@ -49,7 +49,7 @@ let productdata = [];
 const handleEvent = async (event) => {
   console.log(event);
   const { data } = await axios.get(
-    `https://afternoon-brook-66471.herokuapp.com/api`
+    `https://line-node-backend.herokuapp.com/api`
   );
   console.log("data=>>>>", data);
   productdata = data;
