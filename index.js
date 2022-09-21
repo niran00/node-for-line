@@ -76,7 +76,7 @@ const handleEvent = async (event) => {
   });
 
   if (event.text === "Products") {
-    return client.replyMessage(event.replyToken, {
+    client.replyMessage(event.replyToken, {
       type: "text",
       text: "cool"
     });
