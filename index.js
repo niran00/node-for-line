@@ -54,8 +54,7 @@ let productdata = [];
 
 const handleEvent = async (event) => {
   
-
-  if (event.text === "Products") {
+  if (event.message.text === "Products") {
     console.log(event);
     client.replyMessage(event.replyToken,{
       type: 'text' , 
