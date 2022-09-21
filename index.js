@@ -45,39 +45,47 @@ app.post("/webhook", line.middleware(lineConfig), async (req, res) => {
   }
 });
 
-let productdata = [];
 const handleEvent = async (event) => {
-  console.log(event);
-  const { data } = await axios.get(
-    `https://line-node-backend.herokuapp.com/api`
-  );
-  console.log("data=>>>>", data);
-  productdata = data;
-  const { synonyms } = productdata;
-  let str = [];
+  console.log(event)
+  client.replyMessage(event.replyToken,{type:text, text:"test" })
+}
 
-  productdata.forEach((result, i) => {
-    str.push({
-      action: {
-        text: productdata.length !== i ? `${result.name}` : result,
-        type: "message",
-        label: "เลือก",
-      },
-      imageUrl: productdata.length !== i ? `${result.imagePath}` : result,
-    });
-  });
+// let productdata = [];
 
-  if (event.text === "Products") {
-    return client.replyMessage(event.replyToken, {
-      type: "template",
-      altText: "this is a image carousel template",
-      template: {
-        columns: str,
-        type: "image_carousel",
-      },
-    });
-  }
-};
+// const handleEvent = async (event) => {
+//   console.log(event);
+//   const { data } = await axios.get(
+//     `https://line-node-backend.herokuapp.com/api`
+//   );
+//   console.log("data=>>>>", data);
+//   productdata = data;
+//   const { synonyms } = productdata;
+//   let str = [];
+
+//   productdata.forEach((result, i) => {
+//     str.push({
+//       action: {
+//         text: productdata.length !== i ? `${result.name}` : result,
+//         type: "message",
+//         label: "เลือก",
+//       },
+//       imageUrl: productdata.length !== i ? `${result.imagePath}` : result,
+//     });
+//   });
+
+//   if (event.text === "Products") {
+//     return client.replyMessage(event.replyToken, {
+//       type: "template",
+//       altText: "this is a image carousel template",
+//       template: {
+//         columns: str,
+//         type: "image_carousel",
+//       },
+//     });
+//   }
+
+  
+// };
 
 app.use(bodyParser.json());
 app.use(
@@ -106,8 +114,8 @@ app.all("/*", (req, res, next) => {
 });
 
 // API root
-app.use("/api", require("./node-backend/routes/book.routes"));
-app.use("/api", require("./node-backend/routes/user.routes"));
+// app.use("/api", require("./node-backend/routes/book.routes"));
+// app.use("/api", require("./node-backend/routes/user.routes"));
 
 app.use("/images", express.static(path.join("./node-backend/images")));
 // PORT
